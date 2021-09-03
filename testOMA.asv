@@ -148,16 +148,13 @@ Rx.Databit = Rx.Datareshape(eyeopenpos,:);
 OMA_decision = (Rx.Databit * Rx.norfactor(1)) + Rx.norfactor(2);
 
 %% BER Estimate w/o EQ
-[Rx.OMA_Pam4level, Rx.Pam4level, Rx.Databitgroup, Rx.OMA_decisiongroup]=OMA_RxMeanStd(Rx.Databit, PAM_order, OMA_decision); 
-Rx.OMA_Pam4levelmean= Rx.OMA_Pam4level(1,:);
-Rx.OMA_Pam4levelstd= Rx.OMA_Pam4level(2,:);
-Rx.Pam4levelmean= Rx.Pam4level(1,:);
-Rx.Pam4levelstd= Rx.Pam4level(2,:);
-%Rx.Pam4level= [Rx.Pam4levelmean,  Rx.Pam4levelstd];
+[Rx.OMA_Pam4level, Rx.Pam4level, Rx.Databitgroup, Rx.OMA_decisiongroup]=RxMeanStd(Rx.Databit, PAM_order, OMA_decision); 
+Rx.OMA_Pam4levelmean,  Rx.OMA_Pam4levelstd = Rx.OMA_Pam4level;
+Rx.Pam4levelmean,  Rx.Pam4levelstd = Rx.Pam4level;
 %[Rx.OMA_Pam4levelmean, Rx.OMA_Pam4levelstd, Rx.Pam4levelmean, Rx.Pam4levelstd, Rx.Databitgroup, Rx.OMA_decisiongroup]=RxMeanStd(Rx.Databit, PAM_order, OMA_decision); 
     %[Rx.Pam4levelmean, Rx.Pam4levelstd, Rx.Databitgroup]=RxMeanStd(Rx.Databit,PAM_order);      
 %%
-    [BER.esttotal,BER.est,SNR.Q]=QBER(Rx.Pam4levelmean, Rx.Pam4levelstd, basicsetting);
+    [BER.esttotal,BER.est,SNR.Q]=QBER(Rx.Pam4levelmean,Rx.Pam4levelstd,basicsetting);
     SNR.woEQ=10*log10(sum(SNR.Q.^2));
     SNR.woEQD=10*log10((SNR.Q.^2));
 %% TDECQ calculation
